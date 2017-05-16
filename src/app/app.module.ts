@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-
+import { LocationService } from 'app/services/Location.service';
+import { RestClient } from 'app/utils/RestClient';
 import { AgmCoreModule } from '@agm/core';
 
 
@@ -20,7 +21,10 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyCv7LRSAFNFYr4PIbgk2BtXhfvUufxVRTM'
     })
   ],
-  providers: [],
+  providers: [
+    LocationService,
+    RestClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

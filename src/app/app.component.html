@@ -1,4 +1,8 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]='zoom'>
-  <agm-circle [latitude]='51.5285582' [longitude]='-0.2416991' [fillColor]="'#311B92'" [radius]='radius' [fillOpacity]='0.7'>
+  <agm-circle
+    *ngFor="let location of locations"
+    [latitude]='location.geometry.location.lat' [longitude]='location.geometry.location.lng' [radius]='100000'
+    [fillColor]="'#311B92'" [fillOpacity]='0.7' 
+    [strokeColor]="'#311B92'" [strokeOpacity]='1.0'>
   </agm-circle>
 </agm-map>

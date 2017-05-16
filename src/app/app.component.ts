@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { AgmMap, AgmMarker } from '@agm/core'
+import { AgmMap, AgmMarker } from '@agm/core';
+import { environment } from 'environments/environment';
+
+import { Location } from 'app/models/location';
+import { LocationService } from 'app/services/Location.service';
 
 @Component({
   selector: 'app-root',
@@ -7,24 +11,32 @@ import { AgmMap, AgmMarker } from '@agm/core'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  locations: Location[];
   title: string = 'My first angular2-google-maps project';
   lat: number = 51.678418;
   lng: number = 7.809007;
   zoom: number = 3;
   radius: number = 100000;
-  maxRadius: number = 1000000;
+  maxRadius: number = 200000;
   minRadius: number = 50000;
-  scale: number = 1.2;
-  constructor() {
-    setInterval(this.animateRadius.bind(this), 42)
-  }
+  scale: number = 1.1;
 
-  animateRadius() {
-    if (this.scale == 1.2 && this.radius > this.maxRadius) {
-      this.scale = 0.8
-    } else if (this.scale == 0.8 && this.radius < this.minRadius) {
-      this.scale = 1.2
-    }
-    this.radius *= this.scale
+  constructor(private locationService: LocationService) {
+    locationService.getTopLocations(10)
+      .subscribe(
+        response => {
+          this.locations = response;
+          for (var key in this.locations) {
+            let location = this.locations[key];
+            console.log(location.place);
+            console.log(location.count);
+            console.log(location.geometry);
+          }
+        },
+        error => {
+          console.log("Error");
+          console.log(error);
+        }
+      )
   }
 }
