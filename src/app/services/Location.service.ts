@@ -6,12 +6,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Location } from 'app/models/Location';
+import { Data } from 'app/models/Data';
 
 @Injectable()
 export class LocationService {
     constructor(private api: RestClient) {}
 
-    public getTopLocations(size: number): Observable<Location[]> {
+    public getTopLocations(size: number): Observable<Data<Location[]>> {
         return this.api
             .to('/location')
             .setParams({size: size})

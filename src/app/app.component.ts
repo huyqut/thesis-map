@@ -25,12 +25,10 @@ export class AppComponent {
     locationService.getTopLocations(10)
       .subscribe(
         response => {
-          this.locations = response;
+          console.log(response.status + ": " + response.message);
+          this.locations = response.data;
           for (var key in this.locations) {
             let location = this.locations[key];
-            console.log(location.place);
-            console.log(location.count);
-            console.log(location.geometry);
           }
         },
         error => {
